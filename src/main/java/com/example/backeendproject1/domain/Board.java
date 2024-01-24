@@ -11,4 +11,5 @@ public class Board {
     private String createdBy;
     private LocalDateTime modifiedAt;
     private String modifiedBy;
+
 }
