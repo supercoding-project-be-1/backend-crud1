@@ -14,8 +14,7 @@ import java.util.List;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @Slf4j
-public class PostController {
-//CommentsController
+public class CommentController {
 
     private final CommentService commentService;
     @Operation(summary = "모든 댓글 조회")
