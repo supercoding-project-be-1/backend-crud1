@@ -1,14 +1,13 @@
 package com.example.backeendproject1.web.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @ToString
 public class CommentBody {
     @Schema(description = "Comment 내용", example = "감사합니다.")
