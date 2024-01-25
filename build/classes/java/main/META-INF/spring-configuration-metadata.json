@@ -1,0 +1,32 @@
+{
+  "groups": [
+    {
+      "name": "datasource",
+      "type": "com.example.backeendproject1.property.DataSourceProperties",
+      "sourceType": "com.example.backeendproject1.property.DataSourceProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "datasource.driver-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.example.backeendproject1.property.DataSourceProperties"
+    },
+    {
+      "name": "datasource.password",
+      "type": "java.lang.String",
+      "sourceType": "com.example.backeendproject1.property.DataSourceProperties"
+    },
+    {
+      "name": "datasource.url",
+      "type": "java.lang.String",
+      "sourceType": "com.example.backeendproject1.property.DataSourceProperties"
+    },
+    {
+      "name": "datasource.username",
+      "type": "java.lang.String",
+      "sourceType": "com.example.backeendproject1.property.DataSourceProperties"
+    }
+  ],
+  "hints": []
+}
