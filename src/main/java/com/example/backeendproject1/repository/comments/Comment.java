@@ -1,6 +1,7 @@
 package com.example.backeendproject1.repository.comments;
 
 import com.example.backeendproject1.repository.member.Member;
+import com.example.backeendproject1.repository.posts.Post;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,13 +21,18 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @ManyToOne
     @JoinColumn(name="email")
     private Member member;
+
     @Column(name="content")
     private String content;
-    @Column(name="post_id")
-    private Integer postId;
+
+    @ManyToOne
+    @JoinColumn(name="post_id")
+    private Post post;
+
     @Column(name="created_at")
     private LocalDateTime createdAt;
 }

@@ -1,11 +1,13 @@
 package com.example.backeendproject1.repository.posts;
 
+import com.example.backeendproject1.repository.comments.Comment;
 import com.example.backeendproject1.repository.member.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 //Entity
 @Getter
@@ -32,6 +34,11 @@ public class Post {
 
     @Column(name= "created_at")
     private LocalDateTime createdAt;
+
+    //역방향
+    //mappedBy= 정방향 column 명
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
 
 
 

@@ -1,5 +1,6 @@
 package com.example.backeendproject1.config;
 
+import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -22,7 +23,9 @@ import java.util.Map;
 @Configuration
 @EntityScan
 @EnableJpaRepositories(
-        basePackages = {},
+        basePackages = {"com.example.backeendproject1.repository.comments",
+                "com.example.backeendproject1.repository.member",
+                "com.example.backeendproject1.repository.posts" },
         entityManagerFactoryRef = "entityManagerFactoryBean",
         transactionManagerRef= "tmJpa"
 )
@@ -42,10 +45,14 @@ public class JpaConfig {
 
     //EntityManager
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(@Qualifier("dataSource") DataSource dataSource){
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(DataSource datasource){
         LocalContainerEntityManagerFactoryBean em= new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource);
-        em.setPackagesToScan();
+        em.setDataSource(datasource);
+        em.setPackagesToScan(
+                "com.example.backeendproject1.repository.comments",
+                "com.example.backeendproject1.repository.member",
+                "com.example.backeendproject1.repository.posts"
+        );
 
         JpaVendorAdapter vendorAdapter= new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
@@ -61,9 +68,7 @@ public class JpaConfig {
 
     //Transaction Manager
     @Bean(name= "tmJpa")
-    public PlatformTransactionManager transactionManager1(@Qualifier("dataSource") DataSource dataSource){
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactoryBean(dataSource).getObject());
-        return transactionManager;
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
+        return new JpaTransactionManager(entityManagerFactory);
     }
 }
