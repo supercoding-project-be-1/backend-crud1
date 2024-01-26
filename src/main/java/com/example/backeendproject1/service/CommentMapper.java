@@ -13,7 +13,7 @@ public interface CommentMapper {
     //싱글톤
     CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
 
-    //메소드
+    //메소드 //@필드네임이 같아서 @Mapping생략가능?
     @Mapping(target="content", source = "content")
     @Mapping(target="author", source = "author")
     @Mapping(target="postId", source = "postId")

@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -44,5 +43,13 @@ public class CommentController {
         String responseMessage = "Object with id = " + id + " has been deleted";
         return responseMessage;
     }
+
+//    추가로 작성할 수 있는 코드들
+
+    //내가 작성한 포스팅에 댓글달기
+    //내가 작성한 포스팅에 달린 댓글에 대댓글 달기
+
+    //다른 사람이 작성한 포스팅에 댓글달기
+    //다른 사람이 작성한 포스팅에 대댓글 달기
 
 }

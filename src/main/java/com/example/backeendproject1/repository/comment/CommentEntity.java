@@ -27,7 +27,7 @@ public class CommentEntity {
     private String content;
     @Column(name="author", nullable = false)
     private String author;
-    @Column(name = "post_id", nullable = false)
+    @Column(name = "post_id", unique = true, nullable = false)
     private Integer postId;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
