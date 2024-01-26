@@ -42,7 +42,7 @@ public class CommentEntity {
 
     @Column(name = "created_at", nullable = true)
     private LocalDateTime createdAt;
-
+//git 업로드 테스트
 
     public void setCommentBody(CommentBody commentBody) {
         this.content = commentBody.getContent();
