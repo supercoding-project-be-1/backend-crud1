@@ -1,14 +1,41 @@
+
 plugins {
+    id 'org.springframework.boot' version '3.2.0'
+    id 'io.spring.dependency-management' version '1.1.4' // 이 버전은 적절한 버전으로 대체해야 할 수도 있습니다.
     id 'java'
-    id 'org.springframework.boot' version '3.2.2'
-    id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = '17'
+   sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
+    implementation 'mysql:mysql-connector-java:8.0.33'
+    implementation 'org.projectlombok:lombok:1.18.28'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+    testImplementation 'commons-dbcp:commons-dbcp:1.4'
+    runtimeOnly 'mysql:mysql-connector-java'
 }
 
 configurations {
@@ -17,20 +44,14 @@ configurations {
     }
 }
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
-
-tasks.named('test') {
+test {
     useJUnitPlatform()
+}
+
+bootRun {
+    sourceResources sourceSets.main
+}
+
+compileJava {
+    options.annotationProcessorPath = configurations.annotationProcessor
 }
