@@ -7,7 +7,7 @@ spring:
 
 
   datasource:
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    username: ajy8u9cn1h4pohh9e4pi
+    password: ajy8u9cn1h4pohh9e4pi
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/BackeendProject1?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://gcp.connect.psdb.cloud:3306/hunsd
