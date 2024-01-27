@@ -6,12 +6,16 @@ import com.example.backeendproject1.service.exceptions.NotAcceptException;
 import com.example.backeendproject1.service.exceptions.NotFoundException;
 import com.example.backeendproject1.web.dto.Comment;
 import com.example.backeendproject1.web.dto.CommentBody;
+import jakarta.persistence.NoResultException;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,14 +51,34 @@ public class CommentService {
 
 
     @Transactional
-    public Comment updateComment(Integer commentId, CommentBody commentBody) {
-    //    Integer idInt = Integer.valueOf(commentId);
-        CommentEntity commentEntityUpdated = commentJpaRepository.findById(commentId)
-                               .orElseThrow(() ->new NotFoundException("해당 Id: " + commentId + "의 Comment를 찾을 수 없습니다."));
+    public Comment updateComment(String id, CommentBody commentBody) {
+        Integer idInt = Integer.valueOf(id);
+        CommentEntity commentEntityUpdated = commentJpaRepository.findById(idInt)
+                               .orElseThrow(() ->new NotFoundException("해당 Id: " + idInt + "의 Comment를 찾을 수 없습니다."));
         commentEntityUpdated.setCommentBody(commentBody);
         return CommentMapper.INSTANCE.commentEntityToComment(commentEntityUpdated);
     }
 
     public void deleteComment(String id) {
+        try {
+            Integer idInt = Integer.valueOf(id);
+            commentJpaRepository.deleteById(idInt);
+        } catch (NumberFormatException e) {
+            throw new NotAcceptException("comment id 형식이 올바르지 않습니다.");
+        }
+    }
+
+
+    public List<Comment> findCommentsByAuthor(String authorNickName) {
+       try {
+           List<CommentEntity> commentEntities = commentJpaRepository.findCommentEntitiesByAuthor(authorNickName);
+
+       if(commentEntities.isEmpty()){
+           throw new NotFoundException("아직 댓글이 없습니다.");
+       }
+           return commentEntities.stream().map(CommentMapper.INSTANCE::commentEntityToComment).collect(Collectors.toList());
+    } catch(NoResultException e){
+           throw new NotFoundException("리소스를 찾을 수 없습니다.");
+       }
     }
 }

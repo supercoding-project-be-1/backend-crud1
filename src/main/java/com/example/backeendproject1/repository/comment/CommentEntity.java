@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "id")
 @ToString
 @Builder
 @Entity
@@ -31,7 +31,7 @@ public class CommentEntity {
     private Integer postId;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name="author", referencedColumnName = "email", nullable = false)
+//    @JoinColumn(name="author", referencedColumnName = "nickname", nullable = false)
 //    private Member author;
 //    //mappedby해주기
 //
@@ -42,7 +42,6 @@ public class CommentEntity {
 
     @Column(name = "created_at", nullable = true)
     private LocalDateTime createdAt;
-//git 업로드 테스트
 
     public void setCommentBody(CommentBody commentBody) {
         this.content = commentBody.getContent();

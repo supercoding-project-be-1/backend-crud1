@@ -32,24 +32,31 @@ public class CommentController {
         return "댓글 ID: " + commentId + "이 성공적으로 작성되었습니다.";
     }
     @Operation(summary = "기존 댓글의 글을 수정")
-    @PutMapping("/comments/:comment_id")
-    public Comment updateComment(@PathVariable Integer id, @RequestBody CommentBody commentBody){
+    @PutMapping("/comments/{id}")
+    public Comment updateComment(@PathVariable("id") String id, @RequestBody CommentBody commentBody){
         return commentService.updateComment(id, commentBody);
     }
     @Operation(summary = "단일 댓글 id로 삭제")
-    @DeleteMapping("/comments/:comments_id")
-    public String deleteCommentByPathId(@Parameter(name = "id", description = "comment ID", example = "1") @PathVariable String id){
-        commentService.deleteComment(id);
-        String responseMessage = "Object with id = " + id + " has been deleted";
+    @DeleteMapping("/comments/{id}")
+    public String deleteCommentByPathId
+            (@Parameter(name = "id", description = "comment ID", example = "1")
+             @PathVariable String id){
+    commentService.deleteComment(id);
+        String responseMessage = "댓글 id: " + id + " 성공적으로 삭제되었습니다.";
         return responseMessage;
     }
 
-//    추가로 작성할 수 있는 코드들
-
-    //내가 작성한 포스팅에 댓글달기
-    //내가 작성한 포스팅에 달린 댓글에 대댓글 달기
-
-    //다른 사람이 작성한 포스팅에 댓글달기
-    //다른 사람이 작성한 포스팅에 대댓글 달기
-
+    @Operation(summary = "작성자(author:닉네임)로 댓글 조회")
+    @GetMapping("/comments-author")
+    public List<Comment> findCommentsByAuthor(
+            @RequestParam("author") String authorNickName){
+        List<Comment> comments = commentService.findCommentsByAuthor(authorNickName);
+        return comments;
+    }
 }
+
+//    추가로 작성할 수 있는 코드들
+//comment id로 찾기, 닉네임으로 찾기
+    //comment 대댓글달기
+    //좋아요 하기
+
