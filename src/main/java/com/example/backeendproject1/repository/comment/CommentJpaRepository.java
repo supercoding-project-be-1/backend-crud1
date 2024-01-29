@@ -10,6 +10,4 @@ import java.util.List;
 public interface CommentJpaRepository extends JpaRepository<CommentEntity, Integer> {
 
     List<CommentEntity> findCommentEntitiesByAuthor(String author);
-
-    List<CommentEntity> findByParentId(Integer parentId);
 }

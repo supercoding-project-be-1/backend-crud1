@@ -29,7 +29,7 @@ dependencies {
 
     // Database Drivers
     implementation 'mysql:mysql-connector-java:8.0.33'
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+  //  runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.28'
