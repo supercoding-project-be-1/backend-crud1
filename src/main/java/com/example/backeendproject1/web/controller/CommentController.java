@@ -55,9 +55,26 @@ public class CommentController {
         return comments;
     }
 }
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 대댓글?
+//    @Operation(summary = "대댓글 조회")
+//    @GetMapping("/comments/nested/{parentId}")
+//    public List<Comment> getNestedComments(@PathVariable Integer parentId) {
+//        List<Comment> nestedComments = commentService.getNestedComments(parentId);
+//        return nestedComments;
+//    }
+//
+//    @Operation(summary = "대댓글 달기")
+//    @PostMapping("comments/add")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public ResponseEntity<Void> addComment(@RequestBody CommentBody commentBody) {
+//        commentService.addComment(commentBody);
+//        return ResponseEntity.status(HttpStatus.CREATED).build();
+//    }
+//
+//    @Operation(summary = "작성자(id:))로 댓글 조회")
+//    @GetMapping("/comments-author")
 
 //    추가로 작성할 수 있는 코드들
 //comment id로 찾기, 닉네임으로 찾기
-    //comment 대댓글달기
-    //좋아요 하기
-
+//comment 대댓글달기(Nested Comments)
+//

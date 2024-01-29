@@ -43,9 +43,15 @@ public class CommentEntity {
     @Column(name = "created_at", nullable = true)
     private LocalDateTime createdAt;
 
+
+//    @ManyToOne
+//    @JoinColumn(name = "parent_id")
+//    private CommentEntity parent;
+
     public void setCommentBody(CommentBody commentBody) {
         this.content = commentBody.getContent();
         this.author = commentBody.getAuthor();
         this.postId = commentBody.getPostId();
     }
+
 }

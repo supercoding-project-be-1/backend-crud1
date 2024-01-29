@@ -81,4 +81,16 @@ public class CommentService {
            throw new NotFoundException("리소스를 찾을 수 없습니다.");
        }
     }
+
+//
+//    public List<Comment> getNestedComments(Integer parentId) {
+//        List<CommentEntity> comments = commentJpaRepository.findByParentId(parentId);
+//        return comments.stream().map(CommentMapper.INSTANCE::commentEntityToComment).collect(Collectors.toList());
+//    }
+//
+//    public void addComment(CommentBody commentBody) {
+//        CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
+//        commentJpaRepository.save(commentEntity);
+//    }
+
 }
