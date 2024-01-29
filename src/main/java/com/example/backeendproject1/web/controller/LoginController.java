@@ -1,6 +1,6 @@
-package com.example.backeendproject1.member.web;
+package com.example.backeendproject1.web.controller;
 
-import com.example.backeendproject1.member.service.LoginService;
+import com.example.backeendproject1.service.login.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;

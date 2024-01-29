@@ -1,4 +1,4 @@
-package com.example.backeendproject1.member.vo;
+package com.example.backeendproject1.web.vo;
 
 import lombok.Data;
 

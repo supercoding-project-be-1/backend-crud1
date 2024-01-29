@@ -1,17 +1,21 @@
-package com.example.backeendproject1.common.dto;
+package com.example.backeendproject1.web.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+
 @Getter
+@Setter
 @NoArgsConstructor
-public class CommentsDto {
+@AllArgsConstructor
+public class Post {
     private Integer id;
-    private String content;
     private String author;
-    private Integer postId;
+    private String title;
+    private String content;
     private LocalDateTime createdAt;
 
 }
-

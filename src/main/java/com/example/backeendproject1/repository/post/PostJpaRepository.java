@@ -1,7 +1,15 @@
 package com.example.backeendproject1.repository.post;
 
-import com.example.backeendproject1.repository.comment.CommentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface PostJpaRepository extends JpaRepository<CommentEntity, Integer> {
+import java.util.List;
+
+@Repository
+
+public interface PostJpaRepository extends JpaRepository<PostEntity, Integer> {
+
+    List<PostEntity> findPostEntityById(Integer id);
+
+
 }

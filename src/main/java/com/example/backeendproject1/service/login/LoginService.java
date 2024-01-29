@@ -1,7 +1,6 @@
-package com.example.backeendproject1.member.service;
+package com.example.backeendproject1.service.login;
 
 
-import com.example.backeendproject1.member.mapper.LoginMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

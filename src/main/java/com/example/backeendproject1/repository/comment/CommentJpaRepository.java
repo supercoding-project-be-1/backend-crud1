@@ -1,6 +1,6 @@
 package com.example.backeendproject1.repository.comment;
 
-import com.example.backeendproject1.web.dto.Comment;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
