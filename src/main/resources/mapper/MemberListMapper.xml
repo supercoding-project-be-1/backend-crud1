@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.backeendproject1.member.mapper.MemberListMapper">
+<mapper namespace="com.example.backeendproject1.service.mapper.MemberListMapper">
 
-    <select id="selectMemberList" resultType="com.example.backeendproject1.member.vo.MemberListVo">
+    <select id="selectMemberList" resultType="com.example.backeendproject1.web.vo.MemberListVo">
         select nickname, authority, email
         from member
         WHERE nickname != #{nickname}
     </select>
 
-    <select id="getAuthority" resultType="com.example.backeendproject1.member.vo.MemberListVo">
+    <select id="getAuthority" resultType="com.example.backeendproject1.web.vo.MemberListVo">
         select *
         from nickname
         where email = #{email}
@@ -18,7 +18,7 @@
         SELECT COUNT(*) FROM member WHERE email = #{email}
     </select>
 
-    <insert id="insertMember" parameterType="com.example.backeendproject1.member.vo.MemberListVo">
+    <insert id="insertMember" parameterType="com.example.backeendproject1.web.vo.MemberListVo">
         insert into member (
             nickname, email, password, authority
         )

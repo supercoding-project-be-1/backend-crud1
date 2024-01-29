@@ -1,4 +1,4 @@
-package com.example.backeendproject1.member.mapper;
+package com.example.backeendproject1.service.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

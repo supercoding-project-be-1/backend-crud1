@@ -1,6 +1,6 @@
-package com.example.backeendproject1.member.mapper;
+package com.example.backeendproject1.service.mapper;
 
-import com.example.backeendproject1.member.vo.MemberListVo;
+import com.example.backeendproject1.web.vo.MemberListVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;

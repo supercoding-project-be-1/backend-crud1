@@ -1,4 +1,4 @@
-package com.example.backeendproject1.service;
+package com.example.backeendproject1.service.mapper;
 
 import com.example.backeendproject1.repository.comment.CommentEntity;
 import com.example.backeendproject1.web.dto.Comment;

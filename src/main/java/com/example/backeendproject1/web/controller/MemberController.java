@@ -1,8 +1,8 @@
-package com.example.backeendproject1.member.web;
+package com.example.backeendproject1.web.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
-import com.example.backeendproject1.member.service.MemberService;
-import com.example.backeendproject1.member.vo.MemberListVo;
+import com.example.backeendproject1.service.MemberService;
+import com.example.backeendproject1.web.vo.MemberListVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

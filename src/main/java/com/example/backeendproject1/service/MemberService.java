@@ -1,7 +1,7 @@
-package com.example.backeendproject1.member.service;
+package com.example.backeendproject1.service;
 
-import com.example.backeendproject1.member.mapper.MemberListMapper;
-import com.example.backeendproject1.member.vo.MemberListVo;
+import com.example.backeendproject1.service.mapper.MemberListMapper;
+import com.example.backeendproject1.web.vo.MemberListVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

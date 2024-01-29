@@ -4,17 +4,15 @@ import com.example.backeendproject1.repository.comment.CommentEntity;
 import com.example.backeendproject1.repository.comment.CommentJpaRepository;
 import com.example.backeendproject1.service.exceptions.NotAcceptException;
 import com.example.backeendproject1.service.exceptions.NotFoundException;
+import com.example.backeendproject1.service.mapper.CommentMapper;
 import com.example.backeendproject1.web.dto.Comment;
 import com.example.backeendproject1.web.dto.CommentBody;
 import jakarta.persistence.NoResultException;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
