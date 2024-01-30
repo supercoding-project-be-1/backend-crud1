@@ -1,5 +1,6 @@
 package com.example.backeendproject1.repository.post;
 
+import com.example.backeendproject1.repository.member.MemberEntity;
 import com.example.backeendproject1.web.dto.PostBody;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,8 @@ import java.time.LocalDateTime;
 public class PostEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @OneToMany
+//    @JoinColumn(name="author", referencedColumnName = "nickname", nullable = false)
     private Integer id;
 
     //author
@@ -25,6 +28,7 @@ public class PostEntity {
 //    @JoinColumn(name="email")
 //    private Member member;
 //    //mappedby해주기
+
     @Column(name = "author")
     private String author;
 
@@ -34,8 +38,6 @@ public class PostEntity {
 //    @JoinColumn(name="nickname")
 //    private Member member;
     //    //mappedby해주기
-
-
     @Column(name = "title")
     private String title;
     @Column(name = "content")
