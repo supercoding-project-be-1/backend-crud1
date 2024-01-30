@@ -66,7 +66,9 @@ public class PostService {
         //❓왜 id가 integer인거야 string인거야..?
         PostEntity postEntity = postJpaRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("아이디" + postId + "를 가진 게시글을 찾지 못했습니다."));
-        postEntity.setPostBody(postBody);
+//        postEntity.setPostBody(postBody);
+        postEntity.setTitle(postBody.getTitle()); //postEntity의 ssetPostBody한번에 하는 setter 지우고 각각 받아오기로
+        postEntity.setContent(postBody.getContent());
         PostEntity postEntityUpdated = postJpaRepository.save(postEntity);
         return PostMapper.INSTANCE.postEntityToPostDto(postEntityUpdated);
 
@@ -75,5 +77,11 @@ public class PostService {
     public void deletePost (Integer postId){ //❓왜 id가 integer인거야 string인거야
 //        Integer idInt= Integer.parseInt(postId); //❓왜 id를 int로 바꾸는거야 integer로 하면 안돼?
         postJpaRepository.deleteById(postId);
+    }
+
+    public Post findPostById(Integer postId){
+        PostEntity postEntity = postJpaRepository.findById(postId)
+                .orElseThrow(() -> new NotFoundException("아이디" + postId + "를 가진 게시글을 찾지 못했습니다."));
+        return PostMapper.INSTANCE.postEntityToPostDto(postEntity);
     }
 }

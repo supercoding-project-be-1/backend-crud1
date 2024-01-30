@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 public class PostEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="post_id")
 //    @OneToMany
 //    @JoinColumn(name="author", referencedColumnName = "nickname", nullable = false)
     private Integer id;
@@ -45,9 +46,9 @@ public class PostEntity {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    public void setPostBody(PostBody postBody) {
-        this.author = postBody.getAuthor();
-        this.title = postBody.getTitle();
-        this.content = postBody.getContent();
-    }
+//    public void setPostBody(PostBody postBody) {
+//        this.author = postBody.getAuthor();
+//        this.title = postBody.getTitle();
+//        this.content = postBody.getContent();
+//    }
 }

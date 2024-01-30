@@ -44,5 +44,10 @@ public class PostController {
         postService.deletePost(Integer.valueOf(postId));
         return "아이디 "+ postId + "번 게시물이 삭제되었습니다.";
     }
+    @Operation(summary= "아이디로 게시글 찾기")
+    @GetMapping("/posts/find/{postId}")
+    public Post findPostById(@PathVariable String postId){
+        return postService.findPostById(Integer.valueOf(postId));
+    }
 
 }
