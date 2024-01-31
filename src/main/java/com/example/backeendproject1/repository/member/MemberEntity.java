@@ -30,10 +30,10 @@ public class MemberEntity {
 
     @Column(name = "authority", length =255)
     private String authority;
-
+//
 //    @OneToMany(mappedBy = "memberEntity")
 //    private List<CommentEntity> commentEntitiesList;
-//
+
 //    @OneToMany(mappedBy = "memberEntity")
 //    private List<PostEntity> postEntitiesList;
 

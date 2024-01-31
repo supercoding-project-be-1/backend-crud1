@@ -1,5 +1,6 @@
 package com.example.backeendproject1.repository.post;
 
+import com.example.backeendproject1.repository.comment.CommentEntity;
 import com.example.backeendproject1.repository.member.MemberEntity;
 import com.example.backeendproject1.web.dto.PostBody;
 import jakarta.persistence.*;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -46,9 +48,13 @@ public class PostEntity {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-//    public void setPostBody(PostBody postBody) {
-//        this.author = postBody.getAuthor();
-//        this.title = postBody.getTitle();
-//        this.content = postBody.getContent();
-//    }
+    //박슬기 추가. CommentEntity랑 연결하려고 해봤는데 오류나네요..ㅠㅠ..
+//    @OneToMany(mappedBy = "memberEntity")
+//    private List<CommentEntity> commentEntitiesList;
+
+    public void setPostBody(PostBody postBody) {
+        this.author = postBody.getAuthor();
+        this.title = postBody.getTitle();
+        this.content = postBody.getContent();
+    }
 }

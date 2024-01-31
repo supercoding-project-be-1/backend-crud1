@@ -1,6 +1,7 @@
 package com.example.backeendproject1.repository.comment;
 
 import com.example.backeendproject1.repository.member.MemberEntity;
+import com.example.backeendproject1.repository.member.MemberJpaRepository;
 import com.example.backeendproject1.repository.post.PostEntity;
 import com.example.backeendproject1.web.dto.CommentBody;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,9 +26,9 @@ import java.util.Objects;
 
 public class CommentEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @Column(name = "content", length =255, nullable = false)
     private String content;
     @Column(name="author", nullable = false)
@@ -38,7 +39,7 @@ public class CommentEntity {
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name="author", referencedColumnName = "nickname", nullable = false)
 //    private MemberEntity memberEntity;
-//    //mappedby해주기
+    //mappedby해주기
 //
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "post_id", nullable = false)
@@ -53,6 +54,7 @@ public class CommentEntity {
         this.author = commentBody.getAuthor();
         this.postId = commentBody.getPostId();
     }
+
 //    public void setCommentBody(CommentBody commentBody) {
 //        this.content = commentBody.getContent();
 //        this.memberEntity = commentBody.getAuthor();

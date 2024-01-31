@@ -1,7 +1,9 @@
 package com.example.backeendproject1.service.member;
 
 import com.example.backeendproject1.repository.member.MemberEntity;
+import com.example.backeendproject1.repository.member.MemberJpaRepository;
 import com.example.backeendproject1.service.mapper.MemberListMapper;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +53,4 @@ public class MemberService {
         }
         return response;
     }
-
 }
