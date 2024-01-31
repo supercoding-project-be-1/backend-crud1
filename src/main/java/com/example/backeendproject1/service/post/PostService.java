@@ -1,4 +1,4 @@
-package com.example.backeendproject1.service;
+package com.example.backeendproject1.service.post;
 
 import com.example.backeendproject1.repository.post.PostEntity;
 
@@ -57,6 +57,7 @@ public class PostService {
 
     public Integer savePost(PostBody postBody) {
         PostEntity postEntity = PostMapper.INSTANCE.idAndPostBodyToPostEntity(null, postBody);
+
         PostEntity postEntityCreated = postJpaRepository.save(postEntity);
         return postEntityCreated.getId();
 

@@ -1,6 +1,7 @@
 package com.example.backeendproject1.web.controller;
 
-import com.example.backeendproject1.service.PostService;
+
+import com.example.backeendproject1.service.post.PostService;
 import com.example.backeendproject1.web.dto.Post;
 
 import com.example.backeendproject1.web.dto.PostBody;

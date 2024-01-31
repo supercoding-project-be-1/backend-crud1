@@ -31,15 +31,15 @@ public class PostEntity {
 //    @JoinColumn(name="email")
 //    private Member member;
 //    //mappedby해주기
-
+//
     @Column(name = "author", length =255, nullable = false)
     private String author;
 
     //nickname
-    //nickname은 member, comment 랑도 연결해야 하는데..
 //    @ManyToOne
 //    @JoinColumn(name="nickname")
-//    private Member member;
+//    private MemberEntity member;
+
     //    //mappedby해주기
     @Column(name = "title", length =255, nullable = false)
     private String title;
