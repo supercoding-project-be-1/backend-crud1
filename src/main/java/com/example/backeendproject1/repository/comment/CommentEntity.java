@@ -3,7 +3,6 @@ package com.example.backeendproject1.repository.comment;
 import com.example.backeendproject1.repository.member.MemberEntity;
 import com.example.backeendproject1.repository.post.PostEntity;
 import com.example.backeendproject1.web.dto.CommentBody;
-import com.example.backeendproject1.web.vo.MemberListVo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
@@ -61,21 +60,21 @@ public class CommentEntity {
 //    }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
-            return false;
-        }
-        CommentEntity commentEntity = (CommentEntity) o;
-        return id != null && Objects.equals(id, commentEntity.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) {
+//            return true;
+//        }
+//        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+//            return false;
+//        }
+//        CommentEntity commentEntity = (CommentEntity) o;
+//        return id != null && Objects.equals(id, commentEntity.id);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return getClass().hashCode();
+//    }
 
 }

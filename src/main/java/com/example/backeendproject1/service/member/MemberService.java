@@ -1,7 +1,7 @@
 package com.example.backeendproject1.service.member;
 
+import com.example.backeendproject1.repository.member.MemberEntity;
 import com.example.backeendproject1.service.mapper.MemberListMapper;
-import com.example.backeendproject1.web.vo.MemberListVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,18 +14,18 @@ public class MemberService {
     @Autowired
     private MemberListMapper memberListMapper;
 
-    public List<MemberListVo>selectMemberList(String email) {
-        List<MemberListVo> memberList = memberListMapper.selectMemberList(email);
+    public List<MemberEntity>selectMemberList(String email) {
+        List<MemberEntity> memberList = memberListMapper.selectMemberList(email);
         return memberList;
     }
     public boolean checkEmail(String email) {
         int count = memberListMapper.checkEmail(email);
         return count > 0; // count가 1 이상이면 중복, 0이면 중복되지 않음
     }
-    public MemberListVo getAuthority(String email) {
+    public MemberEntity getAuthority(String email) {
         Map<String, Object> response = new HashMap<>();
         try {
-            MemberListVo authority = memberListMapper.getAuthority(email);
+            MemberEntity authority = memberListMapper.getAuthority(email);
             response.put("authority", authority);
             return authority;
         } catch (Exception e) {
@@ -35,10 +35,10 @@ public class MemberService {
         return null;
     }
 
-    public Map<String, Object> insertMember(MemberListVo memberListVo) {
+    public Map<String, Object> insertMember(MemberEntity memberEntity) {
         Map<String, Object> response = new HashMap<>();
         try {
-            int rowsAffected = memberListMapper.insertMember(memberListVo);
+            int rowsAffected = memberListMapper.insertMember(memberEntity);
 
             if (rowsAffected > 0) {
                 response.put("success", true);

@@ -1,8 +1,8 @@
 package com.example.backeendproject1.web.controller;
 
+import com.example.backeendproject1.repository.member.MemberEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.example.backeendproject1.service.member.MemberService;
-import com.example.backeendproject1.web.vo.MemberListVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +22,9 @@ public class MemberController {
     private MemberService memberService;
 
     @GetMapping("/members")
-    public ResponseEntity<List<MemberListVo>> selectMember(@RequestParam(value = "email") String email) {
+    public ResponseEntity<List<MemberEntity>> selectMember(@RequestParam(value = "email") String email) {
         try {
-            List<MemberListVo> response = memberService.selectMemberList(email);
+            List<MemberEntity> response = memberService.selectMemberList(email);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,10 +44,10 @@ public class MemberController {
     }
 
     @GetMapping("/getAuthority/{email}")
-    public ResponseEntity<MemberListVo> getAuthority(@PathVariable("email") String email) {
+    public ResponseEntity<MemberEntity> getAuthority(@PathVariable("email") String email) {
         Map<String, Object> response = new HashMap<>();
         try {
-            MemberListVo getAuthority = memberService.getAuthority(email);
+            MemberEntity getAuthority = memberService.getAuthority(email);
             return ResponseEntity.ok(getAuthority);
         } catch (Exception e) {
             // 예외 발생 시 로그에 기록
@@ -57,10 +57,10 @@ public class MemberController {
     }
 
     @PostMapping("/addMember")
-    public ResponseEntity<Map<String, Object>> addMember(@RequestBody MemberListVo memberListVo) {
+    public ResponseEntity<Map<String, Object>> addMember(@RequestBody MemberEntity memberEntity) {
         Map<String, Object> response = new HashMap<>();
         try {
-            Map<String, Object> insertMember = memberService.insertMember(memberListVo);
+            Map<String, Object> insertMember = memberService.insertMember(memberEntity);
             if ((boolean) insertMember.get("success")) {
                 response.put("success", true);
                 response.put("message", "사용자 추가 성공");
