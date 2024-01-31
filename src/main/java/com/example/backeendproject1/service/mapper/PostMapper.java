@@ -8,6 +8,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.time.LocalDateTime;
+
 @Mapper
 public interface PostMapper {
     //singleTon
@@ -41,6 +43,7 @@ public interface PostMapper {
         entity.setAuthor(postBody.getAuthor());
         entity.setTitle(postBody.getTitle());
         entity.setContent(postBody.getContent());
+        entity.setCreatedAt(LocalDateTime.now());
         return entity;
     }
 }

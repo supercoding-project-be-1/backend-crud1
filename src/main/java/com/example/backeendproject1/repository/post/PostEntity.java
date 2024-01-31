@@ -21,7 +21,7 @@ import java.util.List;
 public class PostEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="post_id")
+    @Column(name="id", unique = true)
 //    @OneToMany
 //    @JoinColumn(name="author", referencedColumnName = "nickname", nullable = false)
     private Integer id;
@@ -32,7 +32,7 @@ public class PostEntity {
 //    private Member member;
 //    //mappedby해주기
 
-    @Column(name = "author")
+    @Column(name = "author", length =255, nullable = false)
     private String author;
 
     //nickname
@@ -41,9 +41,9 @@ public class PostEntity {
 //    @JoinColumn(name="nickname")
 //    private Member member;
     //    //mappedby해주기
-    @Column(name = "title")
+    @Column(name = "title", length =255, nullable = false)
     private String title;
-    @Column(name = "content")
+    @Column(name = "content", length =255, nullable = false)
     private String content;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -52,9 +52,9 @@ public class PostEntity {
 //    @OneToMany(mappedBy = "memberEntity")
 //    private List<CommentEntity> commentEntitiesList;
 
-    public void setPostBody(PostBody postBody) {
-        this.author = postBody.getAuthor();
-        this.title = postBody.getTitle();
-        this.content = postBody.getContent();
-    }
+//    public void setPostBody(PostBody postBody) {
+//        this.author = postBody.getAuthor();
+//        this.title = postBody.getTitle();
+//        this.content = postBody.getContent();
+//    }
 }

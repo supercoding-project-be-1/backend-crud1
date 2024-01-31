@@ -22,11 +22,12 @@ public class MemberEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String email;
 
+    @Column(name = "nickname", length =255, nullable = false, unique = true)
+    private String nickname;
+
     @Column(name = "password", length =255, nullable = false)
     private String password;
 
-    @Column(name = "nickname", length =255, nullable = false, unique = true)
-    private String nickname;
 
     @Column(name = "authority", length =255)
     private String authority;

@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import static com.example.backeendproject1.service.mapper.PostMapper.INSTANCE;
@@ -67,8 +68,10 @@ public class PostService {
         PostEntity postEntity = postJpaRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("아이디" + postId + "를 가진 게시글을 찾지 못했습니다."));
 //        postEntity.setPostBody(postBody);
-        postEntity.setTitle(postBody.getTitle()); //postEntity의 ssetPostBody한번에 하는 setter 지우고 각각 받아오기로
+        postEntity.setAuthor(postBody.getAuthor());
+        postEntity.setTitle(postBody.getTitle()); //postEntity의 setPostBody한번에 하는 setter 지우고 각각 받아오기로
         postEntity.setContent(postBody.getContent());
+//        postEntity.setCreatedAt(LocalDateTime.now());
         PostEntity postEntityUpdated = postJpaRepository.save(postEntity);
         return PostMapper.INSTANCE.postEntityToPostDto(postEntityUpdated);
 
