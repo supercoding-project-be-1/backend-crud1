@@ -1,14 +1,12 @@
 package com.example.backeendproject1.repository.member;
 
-import com.example.backeendproject1.repository.comment.CommentEntity;
+import com.example.backeendproject1.repository.member.MemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
+@Repository
 public interface MemberJpaRepository extends JpaRepository<MemberEntity, Integer> {
-
-    static Optional<MemberEntity> findByNickname(String nickname) {
-        return null;
-    }
+    MemberEntity findByEmail(String email);
+    MemberEntity findByNickname(String nickname);
 
 }

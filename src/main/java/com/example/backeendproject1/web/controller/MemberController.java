@@ -50,7 +50,6 @@ public class MemberController {
             MemberEntity getAuthority = memberService.getAuthority(email);
             return ResponseEntity.ok(getAuthority);
         } catch (Exception e) {
-            // 예외 발생 시 로그에 기록
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

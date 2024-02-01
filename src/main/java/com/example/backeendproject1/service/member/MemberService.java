@@ -1,9 +1,7 @@
 package com.example.backeendproject1.service.member;
 
 import com.example.backeendproject1.repository.member.MemberEntity;
-import com.example.backeendproject1.repository.member.MemberJpaRepository;
 import com.example.backeendproject1.service.mapper.MemberListMapper;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +14,7 @@ public class MemberService {
     @Autowired
     private MemberListMapper memberListMapper;
 
-    public List<MemberEntity>selectMemberList(String email) {
+    public List<MemberEntity> selectMemberList(String email) {
         List<MemberEntity> memberList = memberListMapper.selectMemberList(email);
         return memberList;
     }
@@ -37,10 +35,10 @@ public class MemberService {
         return null;
     }
 
-    public Map<String, Object> insertMember(MemberEntity memberEntity) {
+    public Map<String, Object> insertMember(MemberEntity memberListVo) {
         Map<String, Object> response = new HashMap<>();
         try {
-            int rowsAffected = memberListMapper.insertMember(memberEntity);
+            int rowsAffected = memberListMapper.insertMember(memberListVo);
 
             if (rowsAffected > 0) {
                 response.put("success", true);
@@ -53,4 +51,5 @@ public class MemberService {
         }
         return response;
     }
+
 }

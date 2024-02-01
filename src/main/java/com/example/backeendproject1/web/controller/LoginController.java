@@ -40,6 +40,8 @@ public class LoginController {
                 response.put("sessionId", session.getId());
                 response.put("sessionExpiredTime", sessionExpirationTime);
                 response.put("message", "success");
+
+                //sessionid 저장 로직 추가 db
                 return ResponseEntity.ok(response);
             } else {
                 Map<String, Object> response = new HashMap<>();

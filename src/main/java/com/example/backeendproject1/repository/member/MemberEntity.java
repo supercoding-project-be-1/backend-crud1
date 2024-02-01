@@ -1,44 +1,35 @@
 package com.example.backeendproject1.repository.member;
 
-import com.example.backeendproject1.repository.comment.CommentEntity;
-import com.example.backeendproject1.repository.post.PostEntity;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "email")
-@ToString
+@EqualsAndHashCode(of = "id")
 @Builder
 @Entity
-@Table(name="member")
+@Table(name = "member")
 public class MemberEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "nickname", length =255, nullable = false, unique = true)
-    private String nickname;
-
-    @Column(name = "password", length =255, nullable = false)
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false, unique = true)
+    private String nickname;
 
-    @Column(name = "authority", length =255)
+    @Column(nullable = false)
     private String authority;
-//
-//    @OneToMany(mappedBy = "memberEntity")
-//    private List<CommentEntity> commentEntitiesList;
 
-//    @OneToMany(mappedBy = "memberEntity")
-//    private List<PostEntity> postEntitiesList;
+//    @Column(name = "created_at", nullable = true)
+//    private LocalDateTime createdAt;
 
 }
-
-
 
