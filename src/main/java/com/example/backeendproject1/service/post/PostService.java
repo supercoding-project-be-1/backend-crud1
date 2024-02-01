@@ -1,5 +1,7 @@
-package com.example.backeendproject1.service;
+package com.example.backeendproject1.service.post;
 
+import com.example.backeendproject1.repository.member.MemberEntity;
+import com.example.backeendproject1.repository.member.MemberJpaRepository;
 import com.example.backeendproject1.repository.post.PostEntity;
 
 import com.example.backeendproject1.repository.post.PostJpaRepository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import static com.example.backeendproject1.service.mapper.PostMapper.INSTANCE;
@@ -22,6 +25,7 @@ import static com.example.backeendproject1.service.mapper.PostMapper.INSTANCE;
 @RequiredArgsConstructor
 public class PostService {
     private final PostJpaRepository postJpaRepository;
+    private final MemberJpaRepository memberJpaRepository;
     public List<Post> findAllPosts() {
         List<PostEntity> postEntities = postJpaRepository.findAll();
         if (postEntities.isEmpty()) throw new NotFoundException("아직 게시글이 없습니다.");
@@ -56,25 +60,26 @@ public class PostService {
 //        }
 
     public Integer savePost(PostBody postBody) {
-        PostEntity postEntity = PostMapper.INSTANCE.idAndPostBodyToPostEntity(null, postBody);
+        MemberEntity member= memberJpaRepository.findById(postBody.getMemberId())
+                .orElseThrow(() -> new NotFoundException("아이디 "+ postBody.getMemberId() + "를 찾을 수 없습니다."));
+        PostEntity postEntity = PostMapper.INSTANCE.idAndPostBodyToPostEntity(member, postBody);
         PostEntity postEntityCreated = postJpaRepository.save(postEntity);
-        return postEntityCreated.getId();
+        return postEntityCreated.getPostId();
 
     }
 
     @Transactional(transactionManager = "tmJpa")
     public Post updatePost (Integer postId, PostBody postBody){
-        //❓왜 id가 integer인거야 string인거야..?
+        MemberEntity member= memberJpaRepository.findById(postBody.getMemberId())
+                .orElseThrow(() -> new NotFoundException("아이디 "+ postBody.getMemberId() + "를 찾을 수 없습니다."));
         PostEntity postEntity = postJpaRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("아이디" + postId + "를 가진 게시글을 찾지 못했습니다."));
-//        postEntity.setPostBody(postBody);
-        postEntity.setAuthor(postBody.getAuthor());
+//        postEntity.setAuthor(member.getNickname());
         postEntity.setTitle(postBody.getTitle()); //postEntity의 setPostBody한번에 하는 setter 지우고 각각 받아오기로
         postEntity.setContent(postBody.getContent());
 //        postEntity.setCreatedAt(LocalDateTime.now());
         PostEntity postEntityUpdated = postJpaRepository.save(postEntity);
         return PostMapper.INSTANCE.postEntityToPostDto(postEntityUpdated);
-
     }
 
     public void deletePost (Integer postId){ //❓왜 id가 integer인거야 string인거야

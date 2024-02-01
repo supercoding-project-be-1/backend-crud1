@@ -22,31 +22,23 @@ public class PostEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", unique = true)
-//    @OneToMany
-//    @JoinColumn(name="author", referencedColumnName = "nickname", nullable = false)
-    private Integer id;
-
-    //author
-//    @ManyToOne
-//    @JoinColumn(name="email")
-//    private Member member;
-//    //mappedby해주기
+    private Integer postId;
 
     @Column(name = "author", length =255, nullable = false)
     private String author;
 
-    //nickname
-    //nickname은 member, comment 랑도 연결해야 하는데..
-//    @ManyToOne
-//    @JoinColumn(name="nickname")
-//    private Member member;
-    //    //mappedby해주기
     @Column(name = "title", length =255, nullable = false)
     private String title;
     @Column(name = "content", length =255, nullable = false)
     private String content;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private MemberEntity member;
+
 
     //박슬기 추가. CommentEntity랑 연결하려고 해봤는데 오류나네요..ㅠㅠ..
 //    @OneToMany(mappedBy = "memberEntity")

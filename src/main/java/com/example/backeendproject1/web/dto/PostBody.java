@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 public class PostBody {
-    @Schema(description = "author")
-    private String author;
+    @Schema(description = "member_id")
+    private Integer memberId;
     @Schema(description = "title")
     private String title;
     @Schema(description = "content")
