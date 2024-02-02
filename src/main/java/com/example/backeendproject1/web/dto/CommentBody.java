@@ -16,4 +16,7 @@ public class CommentBody {
     private String author;
     @Schema(description = "Post Id", example = "댓글이 달린 포스팅 글 Id")
     private Integer postId;
+    @Schema(description = "member ID", example = "멤버 ID")
+    private Integer memberId;
+
 }

@@ -25,7 +25,8 @@ public class JpaConfig {
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUsername("root");
-        dataSource.setPassword("12341234");
+        //dataSource.setPassword("12341234"); 필요에 따라 주석처리 바꿔서 처리해주세요!
+        dataSource.setPassword("8282");
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/project_1?useUnicode=true&characterEncoding=UTF-8");
         return dataSource;

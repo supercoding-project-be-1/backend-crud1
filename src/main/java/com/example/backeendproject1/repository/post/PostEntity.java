@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -40,13 +41,7 @@ public class PostEntity {
     private MemberEntity member;
 
 
-    //박슬기 추가. CommentEntity랑 연결하려고 해봤는데 오류나네요..ㅠㅠ..
-//    @OneToMany(mappedBy = "memberEntity")
-//    private List<CommentEntity> commentEntitiesList;
-
-//    public void setPostBody(PostBody postBody) {
-//        this.author = postBody.getAuthor();
-//        this.title = postBody.getTitle();
-//        this.content = postBody.getContent();
-//    }
+    //박슬기 추가.
+    @OneToMany(mappedBy = "postEntity", cascade = CascadeType.ALL)
+    private List<CommentEntity> comments; /*= new ArrayList<>();*/
 }
