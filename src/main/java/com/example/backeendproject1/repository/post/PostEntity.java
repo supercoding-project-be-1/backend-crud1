@@ -42,6 +42,7 @@ public class PostEntity {
 
 
     //박슬기 추가.
-    @OneToMany(mappedBy = "postEntity", cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "postEntity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "postEntity")
     private List<CommentEntity> comments; /*= new ArrayList<>();*/
 }

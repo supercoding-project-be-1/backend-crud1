@@ -25,6 +25,7 @@ public interface CommentMapper {
 
     @Mapping(target = "memberEntity.id",source = "commentBody.memberId")
     @Mapping(target = "postEntity.postId",source = "commentBody.postId")
+//    @Mapping(target = "postEntity.author",source = "commentBody.author")
     CommentEntity idAndCommentBodyToCommentEntity(Object o, CommentBody commentBody);
 
 //   CommentEntity idAndCommentToCommentEntity(Integer id, CommentBody commentBody);
