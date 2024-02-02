@@ -56,17 +56,6 @@ public class CommentService {
         }
     }
 
-//    public void addCommentToPost(String postId, CommentBody commentBody) {
-//        Integer postIdInt = Integer.valueOf(postId);
-//        PostEntity postEntity = postJpaRepository.findById(postIdInt).orElseThrow(() -> new NotFoundException("해당 포스트를 찾을 수 없습니다."));
-//        if (postEntity != null) {
-//            CommentEntity commentEntity =  CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null,commentBody );
-//            commentEntity.setPostEntity(postEntity);
-//            postEntity.getComments().add(commentEntity);
-//            postJpaRepository.save(postEntity);
-//        }
-//    }
-
     public List<Comment> getCommentsForPost(String postId) {
         Integer postIdInt = Integer.valueOf(postId);
         List<CommentEntity> commentEntities = commentJpaRepository.findByPostEntityPostId(postIdInt);
