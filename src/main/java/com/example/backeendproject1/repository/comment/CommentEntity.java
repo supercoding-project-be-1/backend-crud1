@@ -19,9 +19,9 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
-@ToString
-@Builder
+//@EqualsAndHashCode(of = "id")
+//@ToString
+//@Builder
 @Entity
 @Table(name="comments")
 
@@ -51,7 +51,11 @@ public class CommentEntity {
     public void setCommentBody(CommentBody commentBody) {
         this.content = commentBody.getContent();
         this.author = commentBody.getAuthor();
-        this.postEntity.setPostId(commentBody.getPostId());
-        this.memberEntity.setId(commentBody.getMemberId());
+        postEntity.setPostId(commentBody.getPostId());
+        memberEntity.setId(commentBody.getMemberId());
     }
+
+    public void setPostId(Integer postId) {
+    }
+
 }

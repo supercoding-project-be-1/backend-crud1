@@ -36,25 +36,44 @@ public class CommentService {
     private final PostJpaRepository postJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
 
-    public void addCommentToPost(String postId, CommentBody commentBody) {
-        Integer postIdInt = Integer.valueOf(postId);
-        try {
-            PostEntity postEntity = this.postJpaRepository.findById(postIdInt)
-                    .orElseThrow(() -> new NotFoundException("해당 포스트를 찾을 수 없습니다."));
-            MemberEntity member = new MemberEntity();
-            memberJpaRepository.save(member);
-            CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
-            commentEntity.setPostEntity(postEntity);
-            postEntity.getComments().add(commentEntity);
-            this.postJpaRepository.save(postEntity);
-        } catch (DataIntegrityViolationException dive) {
-            dive.printStackTrace();
-            out.println("데이터베이스 제약조건 위반");
-        } catch (Exception e) {
-            e.printStackTrace();
-            out.println("예외");
+
+
+        public void addCommentToPost(String postId, CommentBody commentBody) {
+            Integer postIdInt = Integer.valueOf(postId);
+            try {
+                PostEntity post = postJpaRepository.findById(postIdInt)
+                        .orElseThrow(() -> new NotFoundException("해당 포스트를 찾을 수 없습니다."));
+                commentBody.setPostId(postIdInt);
+
+                MemberEntity member = memberJpaRepository.findById(commentBody.getMemberId())
+                        .orElseThrow(() -> new NotFoundException("아이디 " + commentBody.getMemberId() + "를 찾을 수 없습니다."));
+                CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(member, commentBody);
+                CommentEntity commentEntityCreated = commentJpaRepository.save(commentEntity);
+                post.getComments().add(commentEntityCreated);
+                postJpaRepository.save(post);
+            } catch (NumberFormatException e) {
+                // Handle the case where postId is not a valid integer
+                System.out.println("Invalid postId format: " + postId);
+            } catch (NotFoundException nfe) {
+                // Handle the NotFoundException appropriately
+                System.out.println(nfe.getMessage());
+            } catch (Exception e) {
+                // Handle other exceptions
+                e.printStackTrace();
+                System.out.println("예외");
+            }
         }
-    }
+
+
+//
+//        } catch (DataIntegrityViolationException dive) {
+//            dive.printStackTrace();
+//            out.println("데이터베이스 제약조건 위반");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            out.println("예외");
+//        }
+//    }
 
     public List<Comment> getCommentsForPost(String postId) {
         Integer postIdInt = Integer.valueOf(postId);
