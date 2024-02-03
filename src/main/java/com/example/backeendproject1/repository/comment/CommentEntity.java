@@ -19,16 +19,16 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@EqualsAndHashCode(of = "id")
-//@ToString
-//@Builder
+@EqualsAndHashCode(of = "id")
+@ToString
+@Builder
 @Entity
 @Table(name="comments")
 
 public class CommentEntity {
 
-    @Id @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "id")
     private Integer id;
     @Column(name = "content", length =255, nullable = false)
     private String content;
@@ -37,23 +37,26 @@ public class CommentEntity {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id", nullable = false)
+    @JoinColumn(name = "post_id", nullable = true)
     private PostEntity postEntity;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_id", nullable = false)
+    @JoinColumn(name="member_id", nullable = true)
     private MemberEntity memberEntity;
 
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    public void setCommentBody(CommentBody commentBody) {
-        this.content = commentBody.getContent();
-        this.author = commentBody.getAuthor();
-        postEntity.setPostId(commentBody.getPostId());
-        memberEntity.setId(commentBody.getMemberId());
-    }
+
+
+//    public void setCommentBody(CommentBody commentBody) {
+//        this.content = commentBody.getContent();
+//        this.author = commentBody.getAuthor();
+//        postEntity.setPostId(commentBody.getPostId());
+//        memberEntity.setId(commentBody.getMemberId());
+//    }
 
     public void setPostId(Integer postId) {
     }

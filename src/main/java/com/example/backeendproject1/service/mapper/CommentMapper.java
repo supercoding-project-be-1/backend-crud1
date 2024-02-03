@@ -65,11 +65,15 @@ public interface CommentMapper {
 //    @Mapping(target = "postEntity.postId",source = "commentBody.postId")
 //    @Mapping(target="memberEntity.nickname", source = "commentBody.author")
 //    CommentEntity idAndCommentBodyToCommentEntity(Integer id, CommentBody commentBody);
-    default CommentEntity idAndCommentBodyToCommentEntity(MemberEntity member, CommentBody commentBody){
+    default CommentEntity idAndCommentBodyToCommentEntity(Integer id, CommentBody commentBody){
         CommentEntity entity= new CommentEntity();
-        PostEntity postId = new PostEntity();
-        entity.setMemberEntity(member);
-        entity.setAuthor(member.getNickname());
+        entity.setId(id);
+       // PostEntity postId = new PostEntity();
+        MemberEntity memberEntity = new MemberEntity();
+        if (memberEntity != null) {
+            entity.setMemberEntity(memberEntity);
+            entity.setAuthor(memberEntity.getNickname());
+        }
         entity.getPostEntity();
         entity.setContent(commentBody.getContent());
         entity.setCreatedAt(LocalDateTime.now());

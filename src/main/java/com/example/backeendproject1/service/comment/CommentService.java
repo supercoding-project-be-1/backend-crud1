@@ -11,21 +11,16 @@ import com.example.backeendproject1.service.exceptions.NotFoundException;
 import com.example.backeendproject1.service.mapper.CommentMapper;
 import com.example.backeendproject1.web.dto.Comment;
 import com.example.backeendproject1.web.dto.CommentBody;
-import com.example.backeendproject1.web.dto.Post;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.lang.System.out;
 
 
 @Service
@@ -38,42 +33,20 @@ public class CommentService {
 
 
 
-        public void addCommentToPost(String postId, CommentBody commentBody) {
+        public Integer addCommentToPost(String postId, CommentBody commentBody) {
             Integer postIdInt = Integer.valueOf(postId);
-            try {
-                PostEntity post = postJpaRepository.findById(postIdInt)
-                        .orElseThrow(() -> new NotFoundException("해당 포스트를 찾을 수 없습니다."));
-                commentBody.setPostId(postIdInt);
-
-                MemberEntity member = memberJpaRepository.findById(commentBody.getMemberId())
-                        .orElseThrow(() -> new NotFoundException("아이디 " + commentBody.getMemberId() + "를 찾을 수 없습니다."));
-                CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(member, commentBody);
+            PostEntity post = postJpaRepository.findById(postIdInt)
+                    .orElseThrow(() -> new NotFoundException("해당 포스트를 찾을 수 없습니다."));
+            commentBody.setPostId(postIdInt);
+            Integer memberId = commentBody.getMemberId();
+                MemberEntity memberEntity = memberJpaRepository.findById(memberId)
+                        .orElseThrow(() -> new NotFoundException("아이디 " + memberId + "를 찾을 수 없습니다."));
+                CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
                 CommentEntity commentEntityCreated = commentJpaRepository.save(commentEntity);
                 post.getComments().add(commentEntityCreated);
                 postJpaRepository.save(post);
-            } catch (NumberFormatException e) {
-                // Handle the case where postId is not a valid integer
-                System.out.println("Invalid postId format: " + postId);
-            } catch (NotFoundException nfe) {
-                // Handle the NotFoundException appropriately
-                System.out.println(nfe.getMessage());
-            } catch (Exception e) {
-                // Handle other exceptions
-                e.printStackTrace();
-                System.out.println("예외");
+                return commentEntityCreated.getId();
             }
-        }
-
-
-//
-//        } catch (DataIntegrityViolationException dive) {
-//            dive.printStackTrace();
-//            out.println("데이터베이스 제약조건 위반");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            out.println("예외");
-//        }
-//    }
 
     public List<Comment> getCommentsForPost(String postId) {
         Integer postIdInt = Integer.valueOf(postId);

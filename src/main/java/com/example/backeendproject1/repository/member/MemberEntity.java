@@ -10,8 +10,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
-@Builder
+//@EqualsAndHashCode(of = "id")
+//@Builder
 @Entity
 @Table(name = "member")
 public class MemberEntity {
