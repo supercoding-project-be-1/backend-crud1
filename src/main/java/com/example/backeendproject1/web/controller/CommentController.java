@@ -25,13 +25,13 @@ public class CommentController {
     private final CommentService commentService;
 
 
-    @Operation(summary = "새로운 댓글 등록")
-    @PostMapping("/{postId}/comments")
-    public String addCommentToPost(@PathVariable String postId, @RequestBody CommentBody commentBody) {
-      Integer commentId = commentService.addCommentToPost(postId, commentBody);
-      System.out.println("commentBody >> "+commentBody);
-        return "댓글ID: " + commentId + "이 성공적으로 작성되었습니다.";
-    }
+//    @Operation(summary = "새로운 댓글 등록")
+//    @PostMapping("/{postId}/comments")
+//    public String addCommentToPost(@PathVariable String postId, @RequestBody CommentBody commentBody) {
+//      Integer commentId = commentService.addCommentToPost(postId, commentBody);
+//      System.out.println("commentBody >> "+commentBody);
+//        return "댓글ID: " + commentId + "이 성공적으로 작성되었습니다.";
+//    }
 
 //    @Operation(summary = "새로운 댓글 등록")
 //    @PostMapping("/{postId}/comments")

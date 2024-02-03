@@ -13,8 +13,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDateTime;
 
-@Mapper(componentModel = "spring")
-
+@Mapper
 public interface CommentMapper {
 
     //싱글톤
@@ -51,7 +50,7 @@ public interface CommentMapper {
 
 
     //메소드 //@필드네임이 같아서 @Mapping생략가능?
-    @Mapping(target="id", ignore=true)
+   // @Mapping(target="id", ignore=true)
     @Mapping(target="content", source = "content")
     @Mapping(target="author", source = "memberEntity.nickname")
     @Mapping(target = "postId",source = "postEntity.postId")
@@ -60,33 +59,30 @@ public interface CommentMapper {
 
 
 
-//    @Mapping(target="content", source = "commentBody.content")
-//    @Mapping(target = "memberEntity.id",source = "commentBody.memberId")
-//    @Mapping(target = "postEntity.postId",source = "commentBody.postId")
-//    @Mapping(target="memberEntity.nickname", source = "commentBody.author")
-//    CommentEntity idAndCommentBodyToCommentEntity(Integer id, CommentBody commentBody);
-    default CommentEntity idAndCommentBodyToCommentEntity(Integer id, CommentBody commentBody){
-        CommentEntity entity= new CommentEntity();
-        entity.setId(id);
-       // PostEntity postId = new PostEntity();
-        MemberEntity memberEntity = new MemberEntity();
-        if (memberEntity != null) {
-            entity.setMemberEntity(memberEntity);
-            entity.setAuthor(memberEntity.getNickname());
-        }
-        entity.getPostEntity();
-        entity.setContent(commentBody.getContent());
-        entity.setCreatedAt(LocalDateTime.now());
-        return entity;
-    }
 
-   // CommentEntity idAndCommentBodyToCommentEntity(Object o, CommentBody commentBody);
-
-
-
-//   CommentEntity idAndCommentToCommentEntity(Integer id, CommentBody commentBody);
-
-
+  @Mapping(target = "createdAt", ignore=true)
+//    @Mapping(target="id", ignore = true)
+    @Mapping(target="content", source = "commentBody.content")
+    @Mapping(target = "memberEntity.id",source = "commentBody.memberId")
+    @Mapping(target = "postEntity.postId",source = "commentBody.postId")
+    @Mapping(target="memberEntity.nickname", source = "commentBody.author")
+    CommentEntity idAndCommentBodyToCommentEntity(Integer id, CommentBody commentBody);
+//    default CommentEntity idAndCommentBodyToCommentEntity(Integer id, CommentBody commentBody){
+//        CommentEntity entity= new CommentEntity();
+//        Integer entityId = entity.getId();
+//        entityId++;
+//        //PostEntity postId = new PostEntity();
+//        MemberEntity memberEntity = new MemberEntity();
+//        if (memberEntity != null) {
+//            entity.setId(id);
+//            entity.setMemberEntity(memberEntity);
+//            entity.setAuthor(memberEntity.getNickname());
+//        }
+//        entity.getPostEntity();
+//        entity.setContent(commentBody.getContent());
+//        entity.setCreatedAt(LocalDateTime.now());
+//        return entity;
+//    }
 
 //    @Named("convert")
 //    static String localDateTimeToString(LocalDateTime localDateTime) {

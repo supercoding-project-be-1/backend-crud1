@@ -6,8 +6,6 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @ToString
 public class CommentBody {
     @Schema(description = "Comment 내용", example = "감사합니다.")

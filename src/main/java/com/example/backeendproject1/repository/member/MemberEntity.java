@@ -10,13 +10,13 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@EqualsAndHashCode(of = "id")
-//@Builder
+@EqualsAndHashCode(of = "id")
+@Builder
 @Entity
 @Table(name = "member")
 public class MemberEntity {
 
-    @Id /*@Column(name = "id")*/
+    @Id @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
