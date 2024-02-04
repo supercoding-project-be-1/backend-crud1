@@ -33,20 +33,20 @@ public class CommentService {
 
 
 
-//        public Integer addCommentToPost(String postId, CommentBody commentBody) {
-//            Integer postIdInt = Integer.valueOf(postId);
-//            PostEntity post = postJpaRepository.findById(postIdInt)
-//                    .orElseThrow(() -> new NotFoundException("해당 포스트를 찾을 수 없습니다."));
-//            //commentBody.setPostId(postIdInt);
-//            Integer memberId = commentBody.getMemberId();
-//                MemberEntity memberEntity = memberJpaRepository.findById(memberId)
-//                        .orElseThrow(() -> new NotFoundException("아이디 " + memberId + "를 찾을 수 없습니다."));
-//                CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
-//                CommentEntity commentEntityCreated = commentJpaRepository.save(commentEntity);
-//                post.getComments().add(commentEntityCreated);
-//                postJpaRepository.save(post);
-//                return commentEntityCreated.getId();
-//            }
+        public Integer addCommentToPost(String postId, CommentBody commentBody) {
+            Integer postIdInt = Integer.valueOf(postId);
+            PostEntity post = postJpaRepository.findById(postIdInt)
+                    .orElseThrow(() -> new NotFoundException("해당 포스트를 찾을 수 없습니다."));
+            //commentBody.setPostId(postIdInt);
+            Integer memberId = commentBody.getMemberId();
+                MemberEntity memberEntity = memberJpaRepository.findById(memberId)
+                        .orElseThrow(() -> new NotFoundException("아이디 " + memberId + "를 찾을 수 없습니다."));
+                CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
+                CommentEntity commentEntityCreated = commentJpaRepository.save(commentEntity);
+                post.getComments().add(commentEntityCreated);
+                postJpaRepository.save(post);
+                return commentEntityCreated.getId();
+            }
 
     public List<Comment> getCommentsForPost(String postId) {
         Integer postIdInt = Integer.valueOf(postId);

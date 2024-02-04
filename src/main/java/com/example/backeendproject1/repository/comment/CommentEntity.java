@@ -48,12 +48,25 @@ public class CommentEntity {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    public CommentEntity(Integer id, String content, String author, LocalDateTime createdAt) {
+    public CommentEntity(Integer id, String content, String author, PostEntity postEntity, MemberEntity memberEntity) {
         this.id = id;
         this.content = content;
-        this.author = author;
+        this.author = null;
+        this.postEntity = postEntity;
+        this.memberEntity = memberEntity;
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public void setCommentBody(CommentBody commentBody) {
+        this.content = commentBody.getContent();
+        this.author =commentBody.getAuthor();
         this.postEntity = null;
         this.memberEntity = null;
-        this.createdAt = createdAt;
     }
+
+//    public CommentEntity(PostEntity postEntity, MemberEntity memberEntity) {
+//        this.postEntity = postEntity,
+//        this.memberEntity = memberEntity,
+//        this.createdAt = LocalDateTime.now();
+//    }
 }
