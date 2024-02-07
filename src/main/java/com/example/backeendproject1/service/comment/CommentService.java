@@ -31,22 +31,37 @@ public class CommentService {
     private final PostJpaRepository postJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
 
-
-
         public Integer addCommentToPost(String postId, CommentBody commentBody) {
             Integer postIdInt = Integer.valueOf(postId);
             PostEntity post = postJpaRepository.findById(postIdInt)
                     .orElseThrow(() -> new NotFoundException("해당 포스트를 찾을 수 없습니다."));
-            //commentBody.setPostId(postIdInt);
+            commentBody.setPostId(postIdInt);
+
+            CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
+            CommentEntity commentEntityCreated;
+            commentEntityCreated= commentJpaRepository.save(commentEntity);
+            Integer commentId = commentEntityCreated.getId();
+            post.getComments().add(commentEntityCreated);
+            postJpaRepository.save(post);
+
             Integer memberId = commentBody.getMemberId();
-                MemberEntity memberEntity = memberJpaRepository.findById(memberId)
+            MemberEntity memberEntity = memberJpaRepository.findById(memberId)
                         .orElseThrow(() -> new NotFoundException("아이디 " + memberId + "를 찾을 수 없습니다."));
-                CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
-                CommentEntity commentEntityCreated = commentJpaRepository.save(commentEntity);
-                post.getComments().add(commentEntityCreated);
-                postJpaRepository.save(post);
-                return commentEntityCreated.getId();
-            }
+
+            System.out.println(memberId);
+            System.out.println(postIdInt);
+            return commentId;
+        }
+//
+//            MemberEntity memberEntity = memberJpaRepository.findById(memberId)
+//                        .orElseThrow(() -> new NotFoundException("아이디 " + memberId + "를 찾을 수 없습니다."));
+//                CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
+//                CommentEntity commentEntityCreated = commentJpaRepository.save(commentEntity);
+//                post.getComments().add(commentEntityCreated);
+//                Integer commentId = commentEntityCreated.getId();
+//                postJpaRepository.save(post);
+//                return commentId;
+//            }
 
     public List<Comment> getCommentsForPost(String postId) {
         Integer postIdInt = Integer.valueOf(postId);

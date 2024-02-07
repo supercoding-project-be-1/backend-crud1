@@ -30,6 +30,7 @@ public class CommentController {
     public String addCommentToPost(@PathVariable String postId, @RequestBody CommentBody commentBody) {
       Integer commentId = commentService.addCommentToPost(postId, commentBody);
       System.out.println("commentBody >> "+commentBody);
+        //return null;
         return "댓글ID: " + commentId + "이 성공적으로 작성되었습니다.";
     }
 

@@ -19,6 +19,12 @@ public interface CommentMapper {
 
     //싱글톤
     CommentMapper INSTANCE = Mappers.getMapper(CommentMapper.class);
+  int id= 0;
+//    int idCounter = 0; // idCounter이 final값으로 설정되어서 사용할 수 없다는 오류뜸.
+//    default int getNextId() {
+//        return ++idCounter;
+//    }
+
  //   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -30,18 +36,20 @@ public interface CommentMapper {
     @Mapping(target = "memberId",source = "memberEntity.id")
     Comment commentEntityToComment(CommentEntity commentEntity);
 
-    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ에러해결중ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-@Mapping(target = "createdAt", ignore=true)
-    @Mapping(target="id", source="id")
-    @Mapping(target="content", source = "commentBody.content")
-    @Mapping(target = "memberEntity.id",source = "commentBody.memberId")
-    @Mapping(target = "postEntity.postId",source = "commentBody.postId")
-    @Mapping(target="memberEntity.nickname", source = "commentBody.author")
-    // @Mapping(target="id", ignore=true)
-  @Mapping(target = "createdAt", source="createdAt", qualifiedByName = "convert")
-////ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-//   CommentEntity idAndCommentBodyToCommentEntity(Integer id, CommentBody commentBody);
-////
+    @Mapping(target = "createdAt", ignore = true)
+ @Mapping(target="id", expression = "java(id != null ? id : id++)")
+
+   // @Mapping(target = "id", expression = "java(++id)")
+ // @Mapping(target="id", expression = "java(id != null ? id : getNextId())")
+    @Mapping(target = "content", source = "commentBody.content")
+    @Mapping(target = "memberEntity.id", source = "commentBody.memberId")
+   @Mapping(target = "postEntity.postId", source = "commentBody.postId")
+    @Mapping(target = "memberEntity.nickname", source = "commentBody.author")
+    CommentEntity idAndCommentBodyToCommentEntity(Integer id, CommentBody commentBody);
+
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+//
 //    default CommentEntity map(Integer id, CommentBody commentBody) {
 //        if (id == null && commentBody == null) {
 //            return null;
@@ -64,26 +72,28 @@ public interface CommentMapper {
 //    PostEntity commentBodyToPostEntity(CommentBody commentBody);
 //
 //    MemberEntity commentBodyToMemberEntity(CommentBody commentBody);
-//
+////
 //
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
-    default CommentEntity idAndCommentBodyToCommentEntity(Integer id, CommentBody commentBody){
-        CommentEntity entity= new CommentEntity();
-        MemberEntity memberEntity = new MemberEntity();
-         if (memberEntity != null) {
-          entity.setMemberEntity(memberEntity);
-          entity.setAuthor(memberEntity.getNickname());
-      }
-       entity.getPostEntity();
-        entity.setContent(commentBody.getContent());
-        entity.setCreatedAt(LocalDateTime.now());
-        return entity;
-    }
+//    default CommentEntity idAndCommentBodyToCommentEntity(Integer id, CommentBody commentBody){
+//        CommentEntity entity= new CommentEntity();
+//        MemberEntity memberEntity = new MemberEntity();
+//        entity.setId(id);
+//         if (memberEntity != null) {
+//          entity.setMemberEntity(memberEntity);
+//          entity.setAuthor(memberEntity.getNickname());
+//          entity.getMemberEntity();
+//      }
+//       entity.getPostEntity();
+//        entity.setContent(commentBody.getContent());
+//        entity.setCreatedAt(LocalDateTime.now());
+//        return entity;
+//    }
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 //    @Mapping(target = "createdAt", ignore = true)
-////    @Mapping(target = "commentBody", source = "")
+//   @Mapping(target = "commentBody", source = "")
 //    @Mapping(target = "id", ignore = true)
 //    @Mapping(target = "postEntity", source = "commentBody.postId", qualifiedByName = "toPostEntity")
 //    @Mapping(target = "memberEntity", source = "commentBody.memberId", qualifiedByName = "toMemberEntity")
