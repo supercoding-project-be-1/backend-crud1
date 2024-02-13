@@ -27,8 +27,6 @@ public interface CommentMapper {
     @Mapping(target = "memberId",source = "memberEntity.id")
     Comment commentEntityToComment(CommentEntity commentEntity);
 
- //@Mapping(target="id", expression = "java(id++)")
-
     @Mapping(target="createdAt", ignore = true)
     @Mapping(target = "content", source = "commentBody.content")
     @Mapping(target = "memberEntity.id", source = "commentBody.memberId")

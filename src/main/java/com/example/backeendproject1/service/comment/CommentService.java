@@ -6,6 +6,7 @@ import com.example.backeendproject1.repository.member.MemberEntity;
 import com.example.backeendproject1.repository.member.MemberJpaRepository;
 import com.example.backeendproject1.repository.post.PostEntity;
 import com.example.backeendproject1.repository.post.PostJpaRepository;
+import com.example.backeendproject1.service.exceptions.InvalidValueException;
 import com.example.backeendproject1.service.exceptions.NotAcceptException;
 import com.example.backeendproject1.service.exceptions.NotFoundException;
 import com.example.backeendproject1.service.mapper.CommentMapper;
@@ -76,9 +77,8 @@ public class CommentService {
         Integer postIdInt = Integer.valueOf(postId);
         PostEntity post = postJpaRepository.findById(postIdInt)
                 .orElseThrow(() -> new NotFoundException("해당 포스트를 찾을 수 없습니다."));
-        Integer postIdGet = commentBody.getPostId();
-        Integer memberId = commentBody.getMemberId();
-
+//        Integer postIdGet = commentBody.getPostId(); //없어도 되는데 포스트아이디 불러올 수 있는지 확인 차 넣은 코드.
+//        Integer memberId = commentBody.getMemberId(); // 이것도 멤버아이디 불러오는지 확인차
         CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
         commentEntity.setCreatedAt(LocalDateTime.now());
         CommentEntity commentEntityCreated = commentJpaRepository.save(commentEntity);
@@ -87,30 +87,6 @@ public class CommentService {
 
         return commentEntityCreated.getId();
     }
-//
-//
-//
-//            //기존코드
-//            CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
-//            CommentEntity commentEntityCreated = commentJpaRepository.save(commentEntity);
-//            post.getComments().add(commentEntityCreated);
-//            postJpaRepository.save(post);
-//            System.out.println(memberId);
-//            System.out.println(postIdInt);
-//            return commentEntityCreated.getId();
-//        }
-//          else throw new RuntimeException("어떤 오류가 있습니다");
-//        }
-//////
-//            MemberEntity memberEntity = memberJpaRepository.findById(memberId)
-//                        .orElseThrow(() -> new NotFoundException("아이디 " + memberId + "를 찾을 수 없습니다."));
-//                CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
-//                CommentEntity commentEntityCreated = commentJpaRepository.save(commentEntity);
-//                post.getComments().add(commentEntityCreated);
-//                Integer commentId = commentEntityCreated.getId();
-//                postJpaRepository.save(post);
-//                return commentId;
-//            }
 
     public List<Comment> getCommentsForPost(String postId) {
         Integer postIdInt = Integer.valueOf(postId);
@@ -135,10 +111,8 @@ public class CommentService {
                 // Update the content of the comment entity
                 commentEntity.setContent(updatedContent);
                 commentJpaRepository.save(commentEntity);
-            } catch (JsonProcessingException e) {
-                // Handle JSON parsing exception
-                // You can log an error or throw a specific exception based on your needs
-                throw new RuntimeException("댓글을 업데이트하는 도중에 알 수 없는 Error가 발생했습니다. ", e);
+            } catch (RuntimeException e) {
+                throw new InvalidValueException("댓글을 업데이트하는 도중에 알 수 없는 Error가 발생했습니다. ", e);
             }
         }
     }
