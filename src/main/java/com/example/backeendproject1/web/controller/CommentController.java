@@ -25,7 +25,7 @@ public class CommentController {
     private final CommentService commentService;
 
 
-    @Operation(summary = "새로운 댓글 등록")
+    @Operation(summary = "새로운 댓글 등록")   
     @PostMapping("/{postId}/comments")
     public String addCommentToPost(@PathVariable String postId, @RequestBody CommentBody commentBody) {
       Integer commentId = commentService.addCommentToPost(postId, commentBody);

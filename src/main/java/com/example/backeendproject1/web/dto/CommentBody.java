@@ -1,11 +1,14 @@
 package com.example.backeendproject1.web.dto;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @ToString
 public class CommentBody {
     @Schema(description = "Comment 내용", example = "감사합니다.")

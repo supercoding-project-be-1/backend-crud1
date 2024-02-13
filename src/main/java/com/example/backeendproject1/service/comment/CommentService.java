@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,28 +32,76 @@ public class CommentService {
     private final PostJpaRepository postJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
 
-        public Integer addCommentToPost(String postId, CommentBody commentBody) {
-            Integer postIdInt = Integer.valueOf(postId);
-            PostEntity post = postJpaRepository.findById(postIdInt)
-                    .orElseThrow(() -> new NotFoundException("해당 포스트를 찾을 수 없습니다."));
-            commentBody.setPostId(postIdInt);
-
-            CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
-            CommentEntity commentEntityCreated;
-            commentEntityCreated= commentJpaRepository.save(commentEntity);
-            Integer commentId = commentEntityCreated.getId();
-            post.getComments().add(commentEntityCreated);
-            postJpaRepository.save(post);
-
-            Integer memberId = commentBody.getMemberId();
-            MemberEntity memberEntity = memberJpaRepository.findById(memberId)
-                        .orElseThrow(() -> new NotFoundException("아이디 " + memberId + "를 찾을 수 없습니다."));
-
-            System.out.println(memberId);
-            System.out.println(postIdInt);
-            return commentId;
-        }
+//    public Integer addCommentToPost(String postId, CommentBody commentBody) {
+//        Integer postIdInt = Integer.valueOf(postId);
+//        PostEntity post = postJpaRepository.findById(postIdInt)
+//                .orElseThrow(() -> new NotFoundException("해당 포스트를 찾을 수 없습니다."));
+//        System.out.println("PostIdInt" + postIdInt);
+//        //수정하는코드 2/11
+//        Integer postIdGet = commentBody.getPostId();
+//        Integer memberId = commentBody.getMemberId();
+//        String content = commentBody.getContent();
+//        String author = commentBody.getAuthor();
+//        System.out.println("PostIdGet" + postIdGet);
+//        System.out.println("MemberId" + memberId);
+//        if (postIdGet != postIdInt) throw new NotAcceptException("postId가 일치하지 않습니다.");
+//        CommentEntity commentEntity = CommentEntity.builder()
+//                .memberEntity(memberId)
+//                .
+//        PostEntity postIdFinal = postIdGet;
 //
+//        default CommentEntity idAndCommentBodyToCommentEntity(Integer id, CommentBody commentBody){
+////            CommentEntity entity= new CommentEntity();
+////            PostEntity postId = new PostEntity();
+////        entity.setMemberEntity(member);
+////        entity.setAuthor(member.getNickname());
+////        entity.getPostEntity();
+//            entity.setContent(commentBody.getContent());
+////        entity.setCreatedAt(LocalDateTime.now());
+//            return entity;
+//        }}
+//        CommentEntity commentEntity = new CommentEntity();
+//        commentEntity.setMemberEntity(memberId);
+//        commentEntity.set
+//        commentEntity.setCommentBody(commentBody);
+//        commentEntity.setPostEntity(post);
+//
+//        commentJpaRepository.save(commentEntity);
+//        return memberId;
+//    }
+
+
+
+    public Integer addCommentToPost(String postId, CommentBody commentBody) {
+        Integer postIdInt = Integer.valueOf(postId);
+        PostEntity post = postJpaRepository.findById(postIdInt)
+                .orElseThrow(() -> new NotFoundException("해당 포스트를 찾을 수 없습니다."));
+        Integer postIdGet = commentBody.getPostId();
+        Integer memberId = commentBody.getMemberId();
+
+        CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
+        commentEntity.setCreatedAt(LocalDateTime.now());
+        CommentEntity commentEntityCreated = commentJpaRepository.save(commentEntity);
+        post.getComments().add(commentEntityCreated);
+        postJpaRepository.save(post);
+
+        return commentEntityCreated.getId();
+    }
+//
+//
+//
+//            //기존코드
+//            CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
+//            CommentEntity commentEntityCreated = commentJpaRepository.save(commentEntity);
+//            post.getComments().add(commentEntityCreated);
+//            postJpaRepository.save(post);
+//            System.out.println(memberId);
+//            System.out.println(postIdInt);
+//            return commentEntityCreated.getId();
+//        }
+//          else throw new RuntimeException("어떤 오류가 있습니다");
+//        }
+//////
 //            MemberEntity memberEntity = memberJpaRepository.findById(memberId)
 //                        .orElseThrow(() -> new NotFoundException("아이디 " + memberId + "를 찾을 수 없습니다."));
 //                CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
@@ -103,7 +152,7 @@ public class CommentService {
             throw new NotAcceptException("comment id 형식이 올바르지 않습니다.");
         }
     }
-
+}
 //    private class idAndCommentToCommentEntity extends CommentEntity {
 //        public idAndCommentToCommentEntity(Object o, CommentBody commentBody) {
 //        }
@@ -112,7 +161,7 @@ public class CommentService {
 //        public idAndCommentBodyToCommentEntity(Object o, CommentBody commentBody) {
 //        }
 //    }
-}
+
 // 모든 댓글 조회
 //    public List<Comment> findAllComments() {
 //        List<CommentEntity> commentEntities = commentJpaRepository.findAll();

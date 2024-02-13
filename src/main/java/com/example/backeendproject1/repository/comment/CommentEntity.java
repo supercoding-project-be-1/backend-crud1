@@ -19,11 +19,11 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString
 @Entity
-@Builder
+//@Builder
 @Table(name="comments")
 public class CommentEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,24 +45,36 @@ public class CommentEntity {
     private MemberEntity memberEntity;
 
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = true)
     private LocalDateTime createdAt;
+//
+//    public CommentEntity(Integer id, String content, String author, PostEntity postEntity, MemberEntity memberEntity) {
+//        this.id = id;
+//        this.content = content;
+//        this.author = null;
+//        this.postEntity = postEntity;
+//        this.memberEntity = memberEntity;
+////        this.createdAt = LocalDateTime.now();
+//    }
+//
+//    public CommentEntity(Integer id, String content) {
+//        this.id = id;
+//        this.content = content;
+//        this.author = null;
+//        this.postEntity = null;
+//        this.memberEntity = null;
+//        this.createdAt = LocalDateTime.now();
+//    }
 
-    public CommentEntity(Integer id, String content, String author, PostEntity postEntity, MemberEntity memberEntity) {
-        this.id = id;
-        this.content = content;
-        this.author = null;
-        this.postEntity = postEntity;
-        this.memberEntity = memberEntity;
-        this.createdAt = LocalDateTime.now();
-    }
+//    public void setCommentBody(CommentBody commentBody) {
+//        this.content = commentBody.getContent();
+//        this.author =commentBody.getAuthor();
+//        this.postEntity = 0;
+//        this.memberEntity = 0;
+//    }
 
-    public void setCommentBody(CommentBody commentBody) {
-        this.content = commentBody.getContent();
-        this.author =commentBody.getAuthor();
-        this.postEntity = null;
-        this.memberEntity = null;
-    }
+//    public void setContent(String updatedContent) {
+//    }
 
 //    public CommentEntity(PostEntity postEntity, MemberEntity memberEntity) {
 //        this.postEntity = postEntity,
