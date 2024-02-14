@@ -4,10 +4,7 @@ import com.example.backeendproject1.repository.comment.CommentEntity;
 import com.example.backeendproject1.repository.member.MemberEntity;
 import com.example.backeendproject1.web.dto.PostBody;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,6 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name="posts")
 public class PostEntity {
@@ -40,9 +38,6 @@ public class PostEntity {
     @JoinColumn(name = "member_id")
     private MemberEntity member;
 
-
-    //박슬기 추가.
-//    @OneToMany(mappedBy = "postEntity", cascade = CascadeType.ALL)
     @OneToMany(mappedBy = "postEntity")
     private List<CommentEntity> comments; /*= new ArrayList<>();*/
 }

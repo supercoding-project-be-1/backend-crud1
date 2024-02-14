@@ -6,26 +6,23 @@ import com.example.backeendproject1.repository.member.MemberEntity;
 import com.example.backeendproject1.repository.member.MemberJpaRepository;
 import com.example.backeendproject1.repository.post.PostEntity;
 import com.example.backeendproject1.repository.post.PostJpaRepository;
+import com.example.backeendproject1.service.exceptions.InvalidValueException;
 import com.example.backeendproject1.service.exceptions.NotAcceptException;
 import com.example.backeendproject1.service.exceptions.NotFoundException;
 import com.example.backeendproject1.service.mapper.CommentMapper;
 import com.example.backeendproject1.web.dto.Comment;
 import com.example.backeendproject1.web.dto.CommentBody;
-import com.example.backeendproject1.web.dto.Post;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.lang.System.out;
 
 
 @Service
@@ -36,37 +33,19 @@ public class CommentService {
     private final PostJpaRepository postJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
 
-//    public void addCommentToPost(String postId, CommentBody commentBody) {
-//        Integer postIdInt = Integer.valueOf(postId);
-//        try {
-//            PostEntity postEntity = this.postJpaRepository.findById(postIdInt)
-//                    .orElseThrow(() -> new NotFoundException("해당 포스트를 찾을 수 없습니다."));
-//            MemberEntity member = new MemberEntity();
-//            memberJpaRepository.save(member);
-//            CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
-//            commentEntity.setPostEntity(postEntity);
-//            postEntity.getComments().add(commentEntity);
-//            this.postJpaRepository.save(postEntity);
-//        } catch (DataIntegrityViolationException dive) {
-//            dive.printStackTrace();
-//            out.println("데이터베이스 제약조건 위반");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            out.println("예외");
-//        }
-//    }
+    public Integer addCommentToPost(String postId, CommentBody commentBody) {
+        Integer postIdInt = Integer.valueOf(postId);
+        PostEntity post = postJpaRepository.findById(postIdInt)
+                .orElseThrow(() -> new NotFoundException("해당 포스트를 찾을 수 없습니다."));
+//        Integer postIdGet = commentBody.getPostId(); //없어도 되는데 포스트아이디 불러올 수 있는지 확인 차 넣은 코드.
+//        Integer memberId = commentBody.getMemberId(); // 이것도 멤버아이디 불러오는지 확인차
+        CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
+        commentEntity.setCreatedAt(LocalDateTime.now());
+        CommentEntity commentEntityCreated = commentJpaRepository.save(commentEntity);
+        post.getComments().add(commentEntityCreated);
+        postJpaRepository.save(post);
 
-    public void addCommentToPost(String postId, CommentBody commentBody) {
-            Integer postIdInt = Integer.valueOf(postId);
-            PostEntity postEntity = this.postJpaRepository.findById(postIdInt)
-                    .orElseThrow(() -> new NotFoundException("해당 포스트를 찾을 수 없습니다."));
-            MemberEntity member = new MemberEntity();
-            memberJpaRepository.save(member);
-            CommentEntity commentEntity = CommentMapper.INSTANCE.idAndCommentBodyToCommentEntity(null, commentBody);
-            commentEntity.setPostEntity(postEntity);
-            postEntity.getComments().add(commentEntity);
-            this.postJpaRepository.save(postEntity);
-
+        return commentEntityCreated.getId();
     }
 
     public List<Comment> getCommentsForPost(String postId) {
@@ -92,10 +71,8 @@ public class CommentService {
                 // Update the content of the comment entity
                 commentEntity.setContent(updatedContent);
                 commentJpaRepository.save(commentEntity);
-            } catch (JsonProcessingException e) {
-                // Handle JSON parsing exception
-                // You can log an error or throw a specific exception based on your needs
-                throw new RuntimeException("댓글을 업데이트하는 도중에 알 수 없는 Error가 발생했습니다. ", e);
+            } catch (RuntimeException e) {
+                throw new InvalidValueException("댓글을 업데이트하는 도중에 알 수 없는 Error가 발생했습니다. ", e);
             }
         }
     }
@@ -109,7 +86,7 @@ public class CommentService {
             throw new NotAcceptException("comment id 형식이 올바르지 않습니다.");
         }
     }
-
+}
 //    private class idAndCommentToCommentEntity extends CommentEntity {
 //        public idAndCommentToCommentEntity(Object o, CommentBody commentBody) {
 //        }
@@ -118,7 +95,7 @@ public class CommentService {
 //        public idAndCommentBodyToCommentEntity(Object o, CommentBody commentBody) {
 //        }
 //    }
-}
+
 // 모든 댓글 조회
 //    public List<Comment> findAllComments() {
 //        List<CommentEntity> commentEntities = commentJpaRepository.findAll();

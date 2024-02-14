@@ -3,12 +3,15 @@ package com.example.backeendproject1.web.controller;
 import com.example.backeendproject1.repository.comment.CommentEntity;
 import com.example.backeendproject1.repository.post.PostJpaRepository;
 import com.example.backeendproject1.service.comment.CommentService;
+import com.example.backeendproject1.service.mapper.CommentMapper;
 import com.example.backeendproject1.web.dto.Comment;
 import com.example.backeendproject1.web.dto.CommentBody;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,12 +24,21 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @Operation(summary = "새로운 댓글 등록")
+
+    @Operation(summary = "새로운 댓글 등록")   
     @PostMapping("/{postId}/comments")
     public String addCommentToPost(@PathVariable String postId, @RequestBody CommentBody commentBody) {
-        commentService.addCommentToPost(postId, commentBody);
-        return "댓글이 성공적으로 작성되었습니다.";
+      Integer commentId = commentService.addCommentToPost(postId, commentBody);
+      System.out.println("commentBody >> "+commentBody);
+        //return null;
+        return "댓글ID: " + commentId + "이 성공적으로 작성되었습니다.";
     }
+
+//    @Operation(summary = "새로운 댓글 등록")
+//    @PostMapping("/{postId}/comments")
+//    public String registerComment(@PathVariable String postId, @RequestBody CommentBody commentBody) {
+//        System.out.println("commentBody >> "+commentBody);
+//        return null;}
 
     @Operation(summary = "포스트Id에 등록된 모든 댓글 조회")
     @GetMapping("/{postId}/comments")
