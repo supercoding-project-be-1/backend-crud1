@@ -33,46 +33,6 @@ public class CommentService {
     private final PostJpaRepository postJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
 
-//    public Integer addCommentToPost(String postId, CommentBody commentBody) {
-//        Integer postIdInt = Integer.valueOf(postId);
-//        PostEntity post = postJpaRepository.findById(postIdInt)
-//                .orElseThrow(() -> new NotFoundException("해당 포스트를 찾을 수 없습니다."));
-//        System.out.println("PostIdInt" + postIdInt);
-//        //수정하는코드 2/11
-//        Integer postIdGet = commentBody.getPostId();
-//        Integer memberId = commentBody.getMemberId();
-//        String content = commentBody.getContent();
-//        String author = commentBody.getAuthor();
-//        System.out.println("PostIdGet" + postIdGet);
-//        System.out.println("MemberId" + memberId);
-//        if (postIdGet != postIdInt) throw new NotAcceptException("postId가 일치하지 않습니다.");
-//        CommentEntity commentEntity = CommentEntity.builder()
-//                .memberEntity(memberId)
-//                .
-//        PostEntity postIdFinal = postIdGet;
-//
-//        default CommentEntity idAndCommentBodyToCommentEntity(Integer id, CommentBody commentBody){
-////            CommentEntity entity= new CommentEntity();
-////            PostEntity postId = new PostEntity();
-////        entity.setMemberEntity(member);
-////        entity.setAuthor(member.getNickname());
-////        entity.getPostEntity();
-//            entity.setContent(commentBody.getContent());
-////        entity.setCreatedAt(LocalDateTime.now());
-//            return entity;
-//        }}
-//        CommentEntity commentEntity = new CommentEntity();
-//        commentEntity.setMemberEntity(memberId);
-//        commentEntity.set
-//        commentEntity.setCommentBody(commentBody);
-//        commentEntity.setPostEntity(post);
-//
-//        commentJpaRepository.save(commentEntity);
-//        return memberId;
-//    }
-
-
-
     public Integer addCommentToPost(String postId, CommentBody commentBody) {
         Integer postIdInt = Integer.valueOf(postId);
         PostEntity post = postJpaRepository.findById(postIdInt)

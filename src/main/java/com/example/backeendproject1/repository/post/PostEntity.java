@@ -38,8 +38,6 @@ public class PostEntity {
     @JoinColumn(name = "member_id")
     private MemberEntity member;
 
-
-    //박슬기 추가.
     @OneToMany(mappedBy = "postEntity")
     private List<CommentEntity> comments; /*= new ArrayList<>();*/
 }
